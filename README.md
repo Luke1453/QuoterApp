@@ -20,7 +20,8 @@ Market orders in *IMemoryCache* have a random expiration time to simulate orders
 
 Injected *IMemoryCache* as a dependency into *YourQuoter* to be used as a cache for currently available market orders to simulate existing known volume in the market.  
 
-Needed a way to access all stored data in *IMemoryCache* without using *CacheEntry* key, cache API didn't provide such a method so I used Reflection access underlying private *EntriesCollection* and queried market orders with required *InstrumentID* using LINQ.  
+Needed a way to access all stored data in *IMemoryCache* without using *CacheEntry* key, cache API didn't provide such a method so I used Reflection to access underlying private *EntriesCollection* and queried market orders with required *InstrumentID* using LINQ.  
+
 Could probably find an alternative for *IMemoryCache* with an API that suited my needs but using reflection is also a valid approach :D  
 
 Having access to requited market orders was able to implement *GetQuote* (with partial filling option) and *GetVolumeWeightedAveragePrice*.
