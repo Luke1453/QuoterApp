@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
 using QuoterApp.BLL.Services;
 using System.Threading.Tasks;
 
@@ -28,6 +30,13 @@ class Program
                 services.AddHostedService<MarkerOrderSourceConsumer>();
                 services.AddHostedService<AppLifetimeService>();
                 services.AddSingleton<App>();
+
+                // Change loging config
+                services.AddLogging(config =>
+                {
+                    //add log filter for ConsoleLoggerProvider
+                    config.AddFilter<ConsoleLoggerProvider>("Microsoft.Hosting.Lifetime", LogLevel.Error);
+                });
             });
     }
 }

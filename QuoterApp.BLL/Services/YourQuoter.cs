@@ -30,7 +30,14 @@ public class YourQuoter : IQuoter
         else
         {
             // If partial filling isn't allowed we can fill quote using only one market orders
-            instrumentQuantity = marketOrders.Max(x => x.Quantity);
+            if (marketOrders.Count == 0)
+            {
+                instrumentQuantity = 0;
+            }
+            else
+            {
+                instrumentQuantity = marketOrders.Max(x => x.Quantity);
+            }
         }
 
         if (instrumentQuantity < quantity)
@@ -88,7 +95,7 @@ public class YourQuoter : IQuoter
             volume += quote.Quantity;
         });
 
-        // if volume = 0 -> avgProce = 0
+        // if volume = 0 -> avgPrice = 0
         if (volume == 0)
         {
             return 0.0;

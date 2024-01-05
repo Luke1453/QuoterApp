@@ -25,6 +25,7 @@ public class App
             var vwap = _quoter.GetVolumeWeightedAveragePrice(instrumentID);
             Console.WriteLine($"{instrumentID} - Current Volume Weighted Average Price: {vwap}");
 
+            var partialFillingText = (allowPartialFilling ? "" : "Not ") + "Allow Partial Filling";
             double quote;
             try
             {
@@ -32,17 +33,15 @@ public class App
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message.ToString());
+                Console.WriteLine($"{instrumentID} ({partialFillingText}) - {ex.Message}");
                 Console.WriteLine();
                 continue;
             }
 
-            var partialFillingText = (allowPartialFilling ? "" : "Not ") + "Allow Partial Filling";
             Console.WriteLine($"{instrumentID} ({partialFillingText}) - Quantity: {qty}, Quote: {quote}, Average: {quote / qty}");
             Console.WriteLine();
         }
 
-        Console.WriteLine();
         Console.WriteLine($"Done");
     }
 }
