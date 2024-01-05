@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace QuoterApp;
 
@@ -13,8 +14,10 @@ public class App
     }
 
 
-    public void Run()
+    public async Task Run()
     {
+        await Task.Delay(2000);
+
         var rnd = new Random();
         for (int i = 0; i < 6; i++)
         {

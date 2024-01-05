@@ -1,4 +1,5 @@
 ﻿using QuoterApp.Common.Entities;
+using System.Threading.Tasks;
 
 namespace QuoterApp;
 
@@ -11,5 +12,5 @@ public interface IMarketOrderSource
     /// Blocking method that will return next available market order.
     /// </summary>
     /// <returns>Market order containing InstrumentId, Price and Quantity</returns>
-    public MarketOrder GetNextMarketOrder();
+    Task<MarketOrder> GetNextMarketOrder();
 }

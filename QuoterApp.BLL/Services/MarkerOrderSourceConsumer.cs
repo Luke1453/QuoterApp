@@ -32,7 +32,7 @@ public class MarkerOrderSourceConsumer : BackgroundService
         // Simmulate existing market orders
         for (int i = 0; i < 3; i++)
         {
-            cache.Set(Guid.NewGuid().ToString(), marketOrderSource.GetNextMarketOrder(), new MemoryCacheEntryOptions
+            cache.Set(Guid.NewGuid().ToString(), await marketOrderSource.GetNextMarketOrder(), new MemoryCacheEntryOptions
             {
                 AbsoluteExpiration = DateTimeOffset.Now.Add(MarketOrderExpiration())
             });
@@ -41,14 +41,19 @@ public class MarkerOrderSourceConsumer : BackgroundService
         // Loop which will generate random Market Orders
         while (!ct.IsCancellationRequested)
         {
-            cache.Set(Guid.NewGuid().ToString(), marketOrderSource.GetNextMarketOrder(), new MemoryCacheEntryOptions
+            cache.Set(Guid.NewGuid().ToString(), await marketOrderSource.GetNextMarketOrder(), new MemoryCacheEntryOptions
             {
                 AbsoluteExpiration = DateTimeOffset.Now.Add(MarketOrderExpiration())
             });
 
-            await Task.Delay(500, ct); // Simulates delay in getting next quote
+            //await Task.Delay(500, ct); // Simulates delay in getting next quote
         }
     }
+
+    //private Task<MarketOrder> GetMarket()
+    //{
+    //    Task.Run(() => { marketOrderSource.GetNextMarketOrder(), })
+    //}
 
     private static TimeSpan MarketOrderExpiration()
     {

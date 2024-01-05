@@ -13,6 +13,7 @@ class Program
     {
         var hostBuilder = CreateHostBuilder();
         await hostBuilder.RunConsoleAsync();
+
     }
 
     static IHostBuilder CreateHostBuilder()
